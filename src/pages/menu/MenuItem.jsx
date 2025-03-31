@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addItem, getCurrentQuantityById } from '../cart/cartSlice';
 import { formatCurrency } from '../../utils/helpers';
 import Button from '../../components/Button.jsx';
+import DeleteItem from './DeleteItem.jsx';
 
 function MenuItem({ pizza }) {
   const { id, name, unitPrice, ingredients, soldOut, imageUrl } = pizza;
@@ -38,7 +39,7 @@ function MenuItem({ pizza }) {
             <div className="flex items-center gap-3 sm:gap-8">
               {/* TODO: update and delete item */}
               <p>Update Q</p>
-              <p>Delete</p>
+              <DeleteItem pizzaId={id} />
             </div>
           )}
 
