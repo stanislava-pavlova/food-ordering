@@ -5,6 +5,7 @@ import Error from './components/Error.jsx';
 import Home from './pages/Home.jsx';
 import Menu from './pages/menu/Menu.jsx';
 import { loader as menuLoader } from './pages/menu/MenuLoader.jsx';
+import Cart from './pages/cart/Cart.jsx';
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
         element: <Menu />,
         loader: menuLoader,
         errorElement: <Error />,
+      },
+      {
+        path: '/cart',
+        element: <Cart />,
       },
     ],
   },
