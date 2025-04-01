@@ -3,6 +3,7 @@ import { clearCart, getCart } from './cartSlice';
 import EmptyCart from './EmptyCart.jsx';
 import LinkButton from '../../components/LinkButton.jsx';
 import Button from '../../components/Button.jsx';
+import CartItem from './CartItem.jsx';
 
 function Cart() {
   const cart = useSelector(getCart);
@@ -16,7 +17,7 @@ function Cart() {
 
       <ul className="mt-3 divide-y divide-stone-200 border-b">
         {cart.map((item) => (
-          <></>
+          <CartItem item={item} key={item.pizzaId} />
         ))}
       </ul>
 
