@@ -1,52 +1,45 @@
+import axios from 'axios';
+
 const API_URL = 'https://react-fast-pizza-api.onrender.com/api';
 
+const api = axios.create({
+  baseURL: API_URL,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+
 export async function getMenu() {
-  const res = await fetch(`${API_URL}/menu`);
-
-  if (!res.ok) throw Error('Failed getting menu');
-
-  const { data } = await res.json();
-  return data;
+  try {
+    const response = await api.get('/menu');
+    return response.data.data;
+  } catch (error) {
+    throw Error('Failed getting menu');
+  }
 }
 
 export async function getOrder(id) {
-  const res = await fetch(`${API_URL}/order/${id}`);
-  if (!res.ok) throw Error(`Couldn't find order #${id}`);
-
-  const { data } = await res.json();
-  return data;
+  try {
+    const response = await api.get(`/order/${id}`);
+    return response.data.data;
+  } catch (error) {
+    throw Error(`Couldn't find order #${id}`);
+  }
 }
 
 export async function createOrder(newOrder) {
   try {
-    const res = await fetch(`${API_URL}/order`, {
-      method: 'POST',
-      body: JSON.stringify(newOrder),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-
-    if (!res.ok) throw Error();
-    const { data } = await res.json();
-    return data;
-  } catch {
+    const response = await api.post('/order', newOrder);
+    return response.data.data;
+  } catch (error) {
     throw Error('Failed creating your order');
   }
 }
 
 export async function updateOrder(id, updateObj) {
   try {
-    const res = await fetch(`${API_URL}/order/${id}`, {
-      method: 'PATCH',
-      body: JSON.stringify(updateObj),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-
-    if (!res.ok) throw Error();
-  } catch (err) {
+    await api.patch(`/order/${id}`, updateObj);
+  } catch (error) {
     throw Error('Failed updating your order');
   }
 }
